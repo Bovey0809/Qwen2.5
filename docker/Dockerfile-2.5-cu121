@@ -5,6 +5,9 @@ ARG from=nvidia/cuda:${CUDA_VERSION}-cudnn8-devel-ubuntu22.04
 
 FROM ${from} as base
 
+# Set CUDA_HOME environment variable
+ENV CUDA_HOME=/usr/local/cuda
+
 ARG DEBIAN_FRONTEND=noninteractive
 RUN <<EOF
 apt update -y && apt upgrade -y && apt install -y --no-install-recommends  \
@@ -18,6 +21,7 @@ apt update -y && apt upgrade -y && apt install -y --no-install-recommends  \
     libsndfile1 \
     ccache \
     software-properties-common \
+    kmod \
 && rm -rf /var/lib/apt/lists/*
 EOF
 
